@@ -1,11 +1,29 @@
 import Product from "../models/product"
 
-const showProducts = (req, res) => {
-    res.send('listar los productos')
+const showProducts = async (req, res) => {
+    try {
+        //crear un arreglo con los productos de la BD
+        const productList = await Product.find()
+        res.status(200).json(productList);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({ message:'error al buscar los productos'});
+    }
+   
 }
 
-const getOne = (req, res) =>{
-    res.send('el producto buscado')
+const getOne = async (req, res) =>{
+    try {
+        //buscar el producto en mi BD por su id
+        console.log(req.params.id);
+        const productFound = await Product.findById(req.params.id);
+        res.status(200).json(productFound)
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({ message:'error al buscar el producto'});
+    }
+    
 }
 
 
@@ -57,12 +75,26 @@ const { productName, price, urlImg, category } = req.body;
 
 
 
-const updateProduct = (req, res) =>{
-    res.send('el producto fue actualizado')
+const updateProduct = async (req, res) =>{
+    try {
+        // busque el producto por su id en la BD y lo modifique
+        await Product.findByIdAndUpdate(req.params.id, req.body);
+        res.status(200).json({ message: 'Product updete successfully'})
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({ message:'error al buscar el producto'});
+    }
 }
 
-const delateProduct = (req, res) =>{
-    res.send('se borró el producto')
+const delateProduct = async (req, res) =>{
+    try {
+        //busque el producto por su id en la BD y lo borre
+        await Product.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: 'Product deleted successfully'})
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({ message:'error al buscar el producto'});
+    }
 }
 
 export {showProducts, createProduct, getOne, updateProduct, delateProduct};
