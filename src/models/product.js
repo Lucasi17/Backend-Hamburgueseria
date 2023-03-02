@@ -1,11 +1,11 @@
-/* import mongoose, {Schema} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 const productSchema = new Schema({
     productName: {
         require: true,
         type: String,
-        minleng: 2,
-        maxleng: 100,
+        minlenght: 2,
+        maxlenght: 100,
         unique: true
     },
     price: {
@@ -26,5 +26,4 @@ const productSchema = new Schema({
 
 const Product = mongoose.model('product', productSchema);
 
-export default product
- */
+export default Product
