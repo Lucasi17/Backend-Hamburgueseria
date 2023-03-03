@@ -1,3 +1,4 @@
+//import { validationResult } from "express-validator";
 import Product from "../models/product"
 
 const showProducts = async (req, res) => {
@@ -40,8 +41,8 @@ const { productName, price, urlImg, category } = req.body;
     try {
         console.log(req.body);
 
-        //validar
-
+    
+       
         //crear un objeto para guardar la BD
 
         const newProduct = new Product({
@@ -79,7 +80,7 @@ const updateProduct = async (req, res) =>{
     try {
         // busque el producto por su id en la BD y lo modifique
         await Product.findByIdAndUpdate(req.params.id, req.body);
-        res.status(200).json({ message: 'Product updete successfully'})
+        res.status(200).json({ message: 'Product update successfully'})
     } catch (error) {
         console.log(error);
         res.status(404).json({ message:'error al buscar el producto'});
